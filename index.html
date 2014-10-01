@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/maps.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <script type="text/javascript" src="js/vendor/angular.js"></script>
+        <script type="text/javascript" src="js/vendor/angular-route.js"></script>
+        <script type="text/javascript" src="js/vendor/xml2json-0.9.js"></script>
+        <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3"></script>
+        <script type="text/javascript">
+            google.load('visualization', '1', {packages: ['columnchart']});
+        </script>
+    </head>
+    <body ng-app="app" fbx-scroll-receiver fbx-center-map>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <script type="text/javascript" src="js/vendor/jquery-2.1.1.min.js"></script>
+       
+        <script type="text/javascript" src="config/app.js"></script>
+        <script type="text/javascript" src="config/routes.js"></script>
+        <script type="text/javascript" src="config/service.js"></script>
+
+        <script type="text/javascript" src="directives/fbxScrollReceiver.js"></script>
+        <script type="text/javascript" src="directives/fbxCenterMap.js"></script>
+        <script type="text/javascript" src="directives/fbxElevationDiagram.js"></script>
+        <script type="text/javascript" src="controller/maps.js"></script>
+        <script type="text/javascript" src="controller/entryListing.js"></script>
+
+        <script src="js/plugins.js"></script>
+        <script src="js/scroll.js"></script>
+
+        <!-- <div ng-include src='"partials/body.html"'> -->
+        <div>
+            <div id="fbx_map" ng-controller="MapController"></div>
+            <div id="scaffold">
+                <!-- <div ng-include='"../views/entryListing.html"'></div> -->
+                <div id="entryListing" ng-controller="EntryListingController">
+                    <div id="entryWrapper">
+                        <h1>Your trip, show it off now</h1>
+                        <h2>no shitz</h2> 
+                        <div id="fbx_diagram" fbx-elevation-diagram></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    </body>
+</html>

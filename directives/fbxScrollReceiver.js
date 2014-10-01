@@ -1,0 +1,26 @@
+
+angular.module('app').directive('fbxScrollReceiver', ['$rootScope', 'MapService', function(rootScope, MapService) {
+  return {
+    link: function(scope, element, attrs) {
+
+      $('body').bind('mousewheel DOMMouseScroll', function(e){
+
+        var crtPosChanged = false;
+
+        if (e.originalEvent.wheelDelta < 0 || e.originalEvent.detail > 0) {
+          crtPosChanged = MapService.nextEntry();
+          
+          if(crtPosChanged)
+            rootScope.$broadcast('crtPosChanged', {next: true});
+        }
+        else {
+
+          MapService.prevEntry();
+          if(!MapService.atStart())
+            rootScope.$broadcast('crtPosChanged', {next: false});
+
+        }
+      });
+    }
+  };
+}]);
