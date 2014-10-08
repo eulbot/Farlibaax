@@ -14,9 +14,7 @@ angular.module('app').directive('fbxScrollReceiver', ['$rootScope', 'MapService'
             rootScope.$broadcast('crtPosChanged', {next: true});
         }
         else {
-
-          MapService.prevEntry();
-          if(!MapService.atStart())
+          if(MapService.prevEntry())
             rootScope.$broadcast('crtPosChanged', {next: false});
 
         }

@@ -70,9 +70,16 @@ app.factory('MapService', ['$rootScope', function(rootScope) {
     current: function() {
       return trip[crtPos];
     },
+    currentPos: function() {
+      return crtPos;
+    },
     previous: function() {
       if(prevPos >= 0)
         return trip[prevPos];
+    },
+    previousPos: function() {
+      if(prevPos >= 0)
+        return prevPos;
     },
     atStart: function() {
       return crtPos == 0;
@@ -92,6 +99,12 @@ app.factory('MapService', ['$rootScope', function(rootScope) {
         return true;
       }
       return false;
+    },
+    nextPanEntry: function() {
+      if(crtPos + PAN_STEP < trip.length)
+        return trip[crtPos + PAN_STEP];
+      else
+        return trip[length - 1];
     }
   };
 

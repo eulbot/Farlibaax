@@ -1,6 +1,6 @@
 angular.module('app').controller('MapController', ['$scope', '$rootScope', 'MapService', function(scope, rootScope, MapService) {
   
-  var map, offset = 700, colActive = '#f44336', colInactive = '#555'
+  var map, offset = 700, colActive = '#f44336', colInactive = '#333'
 
   var mapOptions = {
       zoom: 15, 
@@ -29,6 +29,7 @@ angular.module('app').controller('MapController', ['$scope', '$rootScope', 'MapS
     strokeWeight: 2,
     visible: true
   }
+  
   scope.$on('crtPosChanged', function(event, args) {
 
     //Set the color of the current path
@@ -111,7 +112,7 @@ angular.module('app').controller('MapController', ['$scope', '$rootScope', 'MapS
   };
 
   function panToCurrent() {
-      map.setCenterWithOffset(MapService.current().location, -offset/2, 0, true);
+      map.setCenterWithOffset(MapService.nextPanEntry().location, -offset/2, 0, true);
   }
   
 }]);
