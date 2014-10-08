@@ -1,26 +1,26 @@
 angular.module('app').controller('MapController', ['$scope', '$rootScope', 'MapService', function(scope, rootScope, MapService) {
   
-  var map, offset = 700, colActive = '#f44336', colInactive = '#333'
+  var map, marker, offset = 700, colActive = '#f44336', colInactive = '#333';
 
   var mapOptions = {
-      zoom: 15, 
+      zoom: 16, 
       streetViewControl: false, 
       navigationControl: false,
       scaleControl: true, 
       disableDefaultUI: true,
       mapTypeId: google.maps.MapTypeId.TERRAIN
   }
-   
-  var pointOptions = {
-    strokeColor: colActive,
-    strokeWeight: 2,
-    strokeOpacity: 0.9,
-    fillColor: '#eee',
-    fillOpacity: 1,
-    map: map,
-    radius: 12,
-    zIndex: 99
-  }
+
+  var markerOptions = {
+    icon: {
+      path: google.maps.SymbolPath.CIRCLE,
+      fillColor: colActive,
+      fillOpacity: 1,
+      strokeColor: colActive,
+      scale: 3
+    },
+    draggable: false
+  };
 
   var lineOptions = {
     geodesic: true,
@@ -40,9 +40,8 @@ angular.module('app').controller('MapController', ['$scope', '$rootScope', 'MapS
       MapService.previous().line.setOptions({strokeColor: colInactive, strokeWeight: 2});
     }
 
-    // Set point visibility
-    MapService.current().point.setVisible(true);
-    MapService.previous().point.setVisible(false);
+    // Move marker to current postion
+    marker.setPosition(MapService.current().location);
 
     if(MapService.current().pan) {
       panToCurrent();
@@ -69,13 +68,13 @@ angular.module('app').controller('MapController', ['$scope', '$rootScope', 'MapS
   function init() {
     map = new google.maps.Map(document.getElementById('fbx_map'), mapOptions);
     map.setCenter(MapService.current().location);
+
+    // Create the marker
+    markerOptions.map = map;
+    markerOptions.position = MapService.current().location;
+    marker = new google.maps.Marker(markerOptions);
   
     for (var i = 0; i < MapService.all().length; i++) {
-       
-      pointOptions.center = new MapService.entryAt(i).location;
-      pointOptions.map = map;
-      pointOptions.visible = i == 0 ? true : false;
-      MapService.entryAt(i).point = new google.maps.Circle(pointOptions);
 
       if(i > 0) {
         lineOptions.path = [

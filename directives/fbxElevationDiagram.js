@@ -5,7 +5,7 @@ angular.module('app').directive('fbxElevationDiagram', ['$rootScope', 'MapServic
 			var map, chart, elevator, data, data2;
 				
 			var chartOptions = {
-				height: 350,
+				height: 150,
 				width:700,
 				legend: 'none',
 				pointSize: 0,
@@ -13,8 +13,8 @@ angular.module('app').directive('fbxElevationDiagram', ['$rootScope', 'MapServic
 				hAxis: {
 					gridlines:{count:0}},
 				series: {
-					0:{color: '#333', visibleInLegend: false, areaOpacity:0.15},
-         			1:{color: '#f44336', visibleInLegend: false, lineWidth: 2,},
+					0:{color: '#333', visibleInLegend: false, lineWidth: 2, areaOpacity:0.15},
+         			1:{color: '#f44336', visibleInLegend: false, lineWidth: 3},
          			2:{color: '#f44336', visibleInLegend: false, pointSize: 5}
          		}
 			}
@@ -46,13 +46,6 @@ angular.module('app').directive('fbxElevationDiagram', ['$rootScope', 'MapServic
 						(i == MapService.currentPos() ? elevation : null)]);
 				}
 			}
-				
-
-			scope.$on('trackLoaded', function(){
-				if (document.readyState == 'complete')
-					init();
-			});
-
 
   			scope.$on('crtPosChanged', function(event, args) {
   				
@@ -81,6 +74,11 @@ angular.module('app').directive('fbxElevationDiagram', ['$rootScope', 'MapServic
 
 			$(document).ready(function(){
 				if(MapService.all().length > 0)
+					init();
+			});
+
+			scope.$on('trackLoaded', function(){
+				if (document.readyState == 'complete')
 					init();
 			});
 		}
