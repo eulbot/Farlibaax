@@ -13,18 +13,9 @@ app.factory('MapService', ['$rootScope', function(rootScope) {
 
     $.get('/kml/Haidsteig.xml', function(xml) {
 
-      $(xml).find("Track").find("coord").each(function(i) {
+      $(xml).find("gx\\:Track, Track").find("gx\\:coord, coord").each(function(i) {
 
           path.push(new google.maps.LatLng($(this).html().split(' ')[1], $(this).html().split(' ')[0]));
-        /*coord = $(this).html().split(' ');
-
-        if(i % 30 == 0) {
-          coord = $(this).html().split(' ');
-          if(i % 60 == 0)
-            trip.push({lat:coord[1], lng:coord[0], alt:coord[2], pan:true});
-          else
-            trip.push({lat:coord[1], lng:coord[0], alt:coord[2], pan:false});
-        }*/
       });
 
       if(path.length > SAMPLE_TRASHOLD) {
@@ -55,7 +46,7 @@ app.factory('MapService', ['$rootScope', function(rootScope) {
       
         rootScope.$broadcast('trackLoaded');
       });
-    });
+    }, 'xml');
   };
   
   parseKmlFile();

@@ -50,7 +50,9 @@ angular.module('app').controller('MapController', ['$scope', '$rootScope', 'MapS
 
   scope.$on('mapResized', function(event, args){
     offset = args.offset;
-    panToCurrent();
+
+    if(MapService.all().length > 0)
+      panToCurrent();
   });
 
   scope.$on('trackLoaded', function(){
