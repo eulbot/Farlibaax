@@ -45,6 +45,7 @@
         <script type="text/javascript" src="directives/fbxScrollReceiver.js"></script>
         <script type="text/javascript" src="directives/fbxCenterMap.js"></script>
         <script type="text/javascript" src="directives/fbxElevationDiagram.js"></script>
+        <script type="text/javascript" src="directives/fbxImageRoller.js"></script>
         <script type="text/javascript" src="controller/maps.js"></script>
         <script type="text/javascript" src="controller/entryListing.js"></script>
 
@@ -57,6 +58,7 @@
         <script type="text/javascript" src="js/material_design/ripples.min.js"></script>
         <script type="text/javascript" src="js/material_design/material.min.js"></script>
 
+        <!-- Partials and Templates -->
         <!-- <div ng-include src='"partials/body.html"'> -->
         <div>
             <div id="fbx_map" ng-controller="MapController"></div>
@@ -64,8 +66,8 @@
                 <!-- <div ng-include='"../views/entryListing.html"'></div> -->
                 <div id="entryListing" ng-controller="EntryListingController">
                     <div id="entryWrapper">
-                        <h1>Your trip, show it off now</h1>
-                        <h2>no shitz</h2> 
+
+
 <div class="navbar navbar-default">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
@@ -110,7 +112,10 @@
         </ul>
     </div>
 </div>
+                        <h1>Your trip, show it off now</h1>
+                        <h2>no shitz</h2> 
                         <div id="fbx_diagram" fbx-elevation-diagram></div>
+                        <div id="fbx_imageroller" fbx-image-roller></div>
                     </div>
                 </div>
             </div>

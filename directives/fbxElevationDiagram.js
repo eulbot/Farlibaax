@@ -2,7 +2,7 @@
 angular.module('app').directive('fbxElevationDiagram', ['$rootScope', 'MapService', function(rootScope, MapService) {
 	return {
 		link: function(scope, element, attrs) {
-			var map, chart, elevator, data, data2;
+			var map, chart, elevator, data;
 				
 			var chartOptions = {
 				height: 150,
