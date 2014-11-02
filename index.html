@@ -19,9 +19,12 @@
         <link href="css/ripples.css" rel="stylesheet">
         <link href="css/material-wfont.css" rel="stylesheet">
 
+        <script type="text/javascript" src="js/vendor/jquery-2.1.1.min.js"></script>
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
         <script type="text/javascript" src="js/vendor/angular.js"></script>
         <script type="text/javascript" src="js/vendor/angular-route.js"></script>
+        <script type="text/javascript" src="js/vendor/jquery.slimscroll.min.js"></script>
+        <script type="text/javascript" src="js/vendor/jquery.lazyload.min.js"></script>
         <script type="text/javascript" src="js/vendor/xml2json-0.9.js"></script>
         <script type="text/javascript" src="http://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3"></script>
@@ -34,7 +37,6 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <script type="text/javascript" src="js/vendor/jquery-2.1.1.min.js"></script>
        
         <!-- App configs -->
         <script type="text/javascript" src="config/app.js"></script>
@@ -67,55 +69,56 @@
                 <div id="entryListing" ng-controller="EntryListingController">
                     <div id="entryWrapper">
 
-
-<div class="navbar navbar-default">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="javascript:void(0)">Brand</a>
-    </div>
-    <div class="navbar-collapse collapse navbar-responsive-collapse">
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="javascript:void(0)">Active</a></li>
-            <li><a href="javascript:void(0)">Link</a></li>
-            <li class="dropdown">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="javascript:void(0)">Action</a></li>
-                    <li><a href="javascript:void(0)">Another action</a></li>
-                    <li><a href="javascript:void(0)">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li class="dropdown-header">Dropdown header</li>
-                    <li><a href="javascript:void(0)">Separated link</a></li>
-                    <li><a href="javascript:void(0)">One more separated link</a></li>
-                </ul>
-            </li>
-        </ul>
-        <form class="navbar-form navbar-left">
-            <input type="text" class="form-control col-lg-8" placeholder="Search">
-        </form>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="javascript:void(0)">Link</a></li>
-            <li class="dropdown">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="javascript:void(0)">Action</a></li>
-                    <li><a href="javascript:void(0)">Another action</a></li>
-                    <li><a href="javascript:void(0)">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="javascript:void(0)">Separated link</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</div>
-                        <h1>Your trip, show it off now</h1>
-                        <h2>no shitz</h2> 
-                        <div id="fbx_diagram" fbx-elevation-diagram></div>
-                        <div id="fbx_imageroller" fbx-image-roller></div>
+                        <div class="navbar navbar-default">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href="javascript:void(0)">Brand</a>
+                            </div>
+                            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                                <ul class="nav navbar-nav">
+                                    <li class="active"><a href="javascript:void(0)">Active</a></li>
+                                    <li><a href="javascript:void(0)">Link</a></li>
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="javascript:void(0)">Action</a></li>
+                                            <li><a href="javascript:void(0)">Another action</a></li>
+                                            <li><a href="javascript:void(0)">Something else here</a></li>
+                                            <li class="divider"></li>
+                                            <li class="dropdown-header">Dropdown header</li>
+                                            <li><a href="javascript:void(0)">Separated link</a></li>
+                                            <li><a href="javascript:void(0)">One more separated link</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <form class="navbar-form navbar-left">
+                                    <input type="text" class="form-control col-lg-8" placeholder="Search">
+                                </form>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li><a href="javascript:void(0)">Link</a></li>
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="javascript:void(0)">Action</a></li>
+                                            <li><a href="javascript:void(0)">Another action</a></li>
+                                            <li><a href="javascript:void(0)">Something else here</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="javascript:void(0)">Separated link</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="scrollable">
+                            <h1>Your trip, show it off now</h1>
+                            <h2>no shitz</h2> 
+                            <div id="fbx_diagram" fbx-elevation-diagram></div>
+                            <div id="fbx_imageroller" fbx-image-roller></div>
+                        </div>
                     </div>
                 </div>
             </div>
