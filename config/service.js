@@ -57,7 +57,7 @@ app.factory('MapService', ['$rootScope', function(rootScope) {
  				trip[$(this).attr('pos')].images = [];
 
  			trip[$(this).attr('pos')].images.push({src:$(this).html(),alt:$(this).attr('alt')});
-            images.push({src:$(this).html(),alt:$(this).attr('alt')});
+            images.push({pos: $(this).attr('pos'), src:$(this).html(),alt:$(this).attr('alt')});
  		});
 
  		rootScope.$broadcast('trackLoaded');
