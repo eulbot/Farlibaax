@@ -11,8 +11,23 @@ body {
 	z-index: 0; 
 }
 
+#fbx_menuBar {
+	position: absolute; 
+	left: 0;
+	top: 0;
+	right: 0;
+	border-bottom: 10px solid white;
+	z-index: 50;
+	display: none
+}
+
 #fbx_diagram {
 	display: block;
+}
+
+#fbx_titleDiagram {
+	display: block;
+	margin-bottom: 75px;
 }
 
 #scaffold {
@@ -35,6 +50,7 @@ body {
 	width: 38%;
 	height: 100%;
 	display: inline-block;
+	//overflow-y: scroll;
 	position: absolute;
 	outline-right: 1px solid #aaa;
 	background-color: white;
@@ -44,5 +60,27 @@ body {
 #fbxImageRoller {
 	img {
 		width: 100%
+	}
+}
+
+.titleArea {
+	width: 100%;
+	text-align: center;
+
+	h2 { 
+		font-family: 'Merriweather', serif;
+		font-weight: 300; 
+		font-size: 1.7em;
+		color: #444;
+	}
+}
+
+#fbx_frontpage {
+	
+	display: table;
+
+	div.inner {
+		display: table-cell;
+		vertical-align: middle;
 	}
 }

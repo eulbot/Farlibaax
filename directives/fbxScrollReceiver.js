@@ -3,7 +3,7 @@ angular.module('app').directive('fbxScrollReceiver', ['$rootScope', 'MapService'
   return {
     link: function(scope, element, attrs) {
 
-      $('body').bind('mousewheel DOMMouseScroll', function(e){
+      $('#fbx_map').bind('mousewheel DOMMouseScroll', function(e){
 
         var crtPosChanged = false;
 
@@ -18,6 +18,8 @@ angular.module('app').directive('fbxScrollReceiver', ['$rootScope', 'MapService'
             rootScope.$broadcast('crtPosChanged', {next: false});
 
         }
+
+        rootScope.$broadcast('globalScroll');
       });
     }
   };

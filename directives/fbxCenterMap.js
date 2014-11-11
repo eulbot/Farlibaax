@@ -7,6 +7,7 @@ angular.module('app').directive('fbxCenterMap', ['$rootScope', 'MapService', fun
 
       function resized(){
         rootScope.$broadcast('mapResized', {offset: $('#entryListing').width()});
+        $('#fbx_frontpage').height($(window).height());
       }
 
       $(window, '#entryListing').resize(function(){
@@ -14,8 +15,9 @@ angular.module('app').directive('fbxCenterMap', ['$rootScope', 'MapService', fun
         ct = setTimeout(resized, 300);
       });
 
-      scope.$on('mapLoaded', function() {
-      });
+      $(document).ready(function(){
+        $('#fbx_frontpage').height($(window).height());
+      })
     }
   };
 }]);

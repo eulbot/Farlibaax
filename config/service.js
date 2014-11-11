@@ -10,7 +10,7 @@ app.factory('MapService', ['$rootScope', function(rootScope) {
     var elevator = new google.maps.ElevationService();
     var pathRequest, path = [];
 
-    $.get('/kml/Waldegg.kml', function(xml) {
+    $.get('/kml/Haidsteig.xml', function(xml) {
 
     	$(xml).find("gx\\:Track, Track").find("gx\\:coord, coord").each(function(i) {
 

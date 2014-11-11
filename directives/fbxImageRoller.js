@@ -15,9 +15,10 @@ angular.module('app')
 						scope.images = MapService.images();
 					});
 
-					$('#entryWrapper').slimScroll({
-				        height: '100%'
-				   });
+					$('#entryListing').jScrollPane({
+						height:'100%'
+					});
+
 
 				   $("img.lazy").lazyload({
     					effect : "fadeIn"
