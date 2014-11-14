@@ -1,4 +1,3 @@
-
 angular.module('app').directive('fbxScrollReceiver', ['$rootScope', 'MapService', function(rootScope, MapService) {
   return {
     link: function(scope, element, attrs) {

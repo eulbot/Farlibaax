@@ -59,7 +59,24 @@ body {
 
 #fbxImageRoller {
 	img {
-		width: 100%
+		width: 100%;
+	}
+
+	.img_container {
+		display: inline-block;
+		position: relative;
+		margin: 7px 14px;
+	}
+
+	.img_container:before {
+		display: block;
+		content: '';
+		position: absolute;
+	 	top: 0px;
+		right: 0px;
+		bottom: 0px;
+		left: 0px;
+		border: 1px solid rgba(0, 0, 0, 0.15);
 	}
 }
 

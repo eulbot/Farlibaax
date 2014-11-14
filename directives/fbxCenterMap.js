@@ -8,6 +8,9 @@ angular.module('app').directive('fbxCenterMap', ['$rootScope', 'MapService', fun
       function resized(){
         rootScope.$broadcast('mapResized', {offset: $('#entryListing').width()});
         $('#fbx_frontpage').height($(window).height());
+
+          var pane = $('#entryListing').data('jsp');
+          pane.reinitialise();
       }
 
       $(window, '#entryListing').resize(function(){
