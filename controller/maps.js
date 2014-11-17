@@ -18,11 +18,11 @@ angular.module('app').controller('MapController', ['$scope', '$rootScope', 'MapS
   var photoIcon = {
     path: 'M50,30c-8.285,0-15,6.718-15,15c0,8.285,6.715,15,15,15c8.283,0,15-6.715,15-15C65,36.718,58.283,30,50,30z M90,15H78 c-1.65,0-3.428-1.28-3.949-2.846l-3.102-9.309C70.426,1.28,68.65,0,67,0H33c-1.65,0-3.428,1.28-3.949,2.846l-3.102,9.309 C25.426,13.72,23.65,15,22,15H10C4.5,15,0,19.5,0,25v45c0,5.5,4.5,10,10,10h80c5.5,0,10-4.5,10-10V25C100,19.5,95.5,15,90,15z M50,70c-13.807,0-25-11.193-25-25c0-13.806,11.193-25,25-25c13.805,0,25,11.194,25,25C75,58.807,63.805,70,50,70z M86.5,31.993 c-1.932,0-3.5-1.566-3.5-3.5c0-1.932,1.568-3.5,3.5-3.5c1.934,0,3.5,1.568,3.5,3.5C90,30.427,88.433,31.993,86.5,31.993z',
     fillColor: colInactive,
-    fillOpacity: 0.8,
-    offset: 150,
+    fillOpacity: 1,
     strokeColor: colInactive,
-    strokeWeight: 0.8,
-    scale: 0.16
+    strokeWeight: 1,
+    scale: 0.15,
+    anchor: new google.maps.Point(-20, -20)
   }
 
   var markerOptions = {
@@ -31,7 +31,8 @@ angular.module('app').controller('MapController', ['$scope', '$rootScope', 'MapS
       fillColor: colActive,
       fillOpacity: 1,
       strokeColor: colActive,
-      scale: 3
+      scale: 3,
+      zIndex: 9999
     },
     draggable: false
   }
@@ -48,22 +49,20 @@ angular.module('app').controller('MapController', ['$scope', '$rootScope', 'MapS
 
     //Set the color of the current path
     if(args.next) {
-      MapService.current().line.setOptions({strokeColor: colActive, strokeWeight: 3});
+      MapService.current().line.setOptions({strokeColor: colActive, strokeWeight: 3, zIndex: 10});
     }
     else {
-      MapService.previous().line.setOptions({strokeColor: colInactive, strokeWeight: 2});
+      MapService.previous().line.setOptions({strokeColor: colInactive, strokeWeight: 2, zIndex: 5});
     }
 
-    // Move marker to current postion
-    marker.setPosition(MapService.current().location);
+    setMarkerToCurrent();
 
     if(MapService.current().pan) {
       panToCurrent();
     }
   });
 
-  scope.$on('mapResized', function(event, args){
-    offset = args.offset;
+  scope.$on('mapResized', function(){
 
     if(MapService.all().length > 0)
       panToCurrent();
@@ -72,6 +71,27 @@ angular.module('app').controller('MapController', ['$scope', '$rootScope', 'MapS
   scope.$on('trackLoaded', function(){
     if (document.readyState == 'complete')
       init();
+  });
+
+  scope.$on('jumpTo', function(event, args) {
+    var forward = MapService.currentPos() < args.pos;
+
+      while(MapService.currentPos() != args.pos) {
+        if(forward) {
+            MapService.nextEntry();
+            MapService.current().line.setOptions({strokeColor: colActive, strokeWeight: 3, zIndex: 9999});
+        }
+        else {
+          MapService.prevEntry();
+          MapService.previous().line.setOptions({strokeColor: colInactive, strokeWeight: 2, zIndex: 5});
+        }
+
+      setMarkerToCurrent();
+
+      if(MapService.current().pan) {
+        panToCurrent();
+      }
+    }
   });
 
   google.maps.event.addDomListener(window, 'load', function() {
@@ -110,7 +130,8 @@ angular.module('app').controller('MapController', ['$scope', '$rootScope', 'MapS
           position: entry.location,
           pos: i,
           icon: photoIcon,
-          map: map
+          map: map,
+          zIndex: 1
         });
 
         google.maps.event.addListener(photoMarker, 'click', function() {
@@ -121,31 +142,19 @@ angular.module('app').controller('MapController', ['$scope', '$rootScope', 'MapS
     };
 
     google.maps.event.addListenerOnce(map, 'idle', function(){
-      map.setCenterWithOffset(MapService.current().location, -offset/2, 0, true);
+      map.panTo(MapService.current().location);
       setTimeout(function(){rootScope.$broadcast('mapLoaded', {map:map});}, 1000);
     });
   };
 
-  // Thanks @iambriansreed 
-  google.maps.Map.prototype.setCenterWithOffset = function(latlng, offsetX, offsetY, pan) {
-    var map = this;
-    var ov = new google.maps.OverlayView();
-    ov.onAdd = function() {
-        var proj = this.getProjection();
-        var aPoint = proj.fromLatLngToContainerPixel(latlng);
-        aPoint.x = aPoint.x+offsetX;
-        aPoint.y = aPoint.y+offsetY;
-        if(pan)
-          map.panTo(proj.fromContainerPixelToLatLng(aPoint));
-        else
-          map.setCenter(proj.fromContainerPixelToLatLng(aPoint));
-    }; 
-    ov.draw = function() {}; 
-    ov.setMap(this); 
-  };
+  function setMarkerToCurrent() {
+
+    // Move marker to current postion
+    marker.setPosition(MapService.current().location);
+  }
 
   function panToCurrent() {
-      map.setCenterWithOffset(MapService.nextPanEntry().location, -offset/2, 0, true);
+      map.panTo(MapService.nextPanEntry().location);
   }
   
 }]);

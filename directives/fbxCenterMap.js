@@ -2,25 +2,34 @@
 angular.module('app').directive('fbxCenterMap', ['$rootScope', 'MapService', function(rootScope, MapService) {
   return {
     link: function(scope, element, attrs) {
-     
+
       var ct;
 
-      function resized(){
-        rootScope.$broadcast('mapResized', {offset: $('#entryListing').width()});
-        $('#fbx_frontpage').height($(window).height());
-
-          var pane = $('#entryListing').data('jsp');
-          pane.reinitialise();
-      }
-
-      $(window, '#entryListing').resize(function(){
+      $(window).resize(function(){
         clearTimeout(ct);
-        ct = setTimeout(resized, 300);
+        ct = setTimeout(resetDimensions, 300);
       });
 
       $(document).ready(function(){
-        $('#fbx_frontpage').height($(window).height());
+        resetDimensions();
       })
+
+      function resetDimensions() {
+        var pane = $('#entryListing').data('jsp');
+
+        // Redraw the scroll bar
+        if(!!pane)
+          pane.reinitialise();
+
+        // Set the paddding of the map to the width of the entry listing
+        $('#fbx_mapContainer').css('padding-left', $('#entryListing').width());
+
+        // Set the height of the title page to the window height
+        $('#fbx_frontpage').height($(window).height());
+
+        // Broadcast event
+        rootScope.$broadcast('mapResized');
+      }
     }
   };
 }]);

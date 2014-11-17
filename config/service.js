@@ -79,6 +79,9 @@ app.factory('MapService', ['$rootScope', function(rootScope) {
  	currentPos: function() {
  		return crtPos;
  	},
+    setCurrentPos: function(pos) {
+        crtPos = pos;
+    },
  	previous: function() {
  		if(prevPos >= 0)
  			return trip[prevPos];

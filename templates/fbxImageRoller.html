@@ -2,7 +2,7 @@
 	<div ng-repeat="pos in imageGroups">
 		<div ng-repeat="image in images | filter:pos:true"  pos="{{pos}}">
 			<div class="img_container">
-				<img src="{{image.src}}" class="lazy" />
+				<img ng-src="{{image.src}}" class="lazy" />
 			</div>
 		</div>
 	</div>
