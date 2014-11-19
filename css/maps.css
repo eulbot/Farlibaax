@@ -1,1 +1,142 @@
-body{overflow:hidden}div:focus{outline:none}#fbx_map{height:100%;width:100%}#fbx_mapContainer{height:100%;width:100%;position:absolute;top:0;left:0;z-index:0}#fbx_menuBar{position:absolute;left:0;top:0;right:0;border-bottom:10px solid #fff;z-index:50;display:none}#fbx_diagram{display:block}#fbx_titleDiagram{display:block;margin-bottom:75px}#scaffold{z-index:1}#button{height:50px;width:200px;position:absolute;top:100px;right:100px;background-color:#808080;z-index:2;display:none}#entryListing{min-width:700px;width:38%;height:100%;display:inline-block;position:absolute;outline-right:1px solid #aaa;background-color:#fff;box-shadow:0 0 15px 0 #333}#fbxImageRoller img{width:100%}#fbxImageRoller .img_container{display:inline-block;position:relative;margin:7px 14px}#fbxImageRoller .img_container:before{display:block;content:'';position:absolute;top:0;right:0;bottom:0;left:0;border:1px solid rgba(0,0,0,0.15)}.titleArea{width:100%;text-align:center}.titleArea h2{font-family:'Merriweather',serif;font-weight:300;font-size:1.7em;color:#444}#fbx_frontpage{display:table}#fbx_frontpage div.inner{display:table-cell;vertical-align:middle}
+body
+{
+	overflow: hidden;
+}
+
+div:focus
+{
+	outline: none;
+}
+
+#fbx_map
+{
+	height: 100%;
+	width: 100%;
+}
+
+#fbx_mapContainer
+{
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 0;
+}
+
+#fbx_menuBar
+{
+	border-bottom: 10px solid #fff;
+	display: none;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 50;
+}
+
+#fbx_diagram
+{
+	display: block;
+}
+
+#fbx_titleDiagram
+{
+	display: block;
+	margin-bottom: 75px;
+}
+
+#scaffold
+{
+	z-index: 1;
+}
+
+#button
+{
+	background-color: #808080;
+	display: none;
+	height: 50px;
+	position: absolute;
+	right: 100px;
+	top: 100px;
+	width: 200px;
+	z-index: 2;
+}
+
+#entryListing
+{
+	background-color: #eee;
+	box-shadow: 0 0 15px 0 #333;
+	display: inline-block;
+	height: 100%;
+	min-width: 700px;
+	outline-right: 1px solid #aaa;
+	position: absolute;
+	width: 38%;
+}
+
+#fbxImageRoller img
+{
+	width: 100%;
+}
+
+#fbxImageRoller .group_container
+{
+	display: inline-block;
+	margin: 7px 14px 14px 14px;
+	position: relative;
+	background-color: white;
+}
+
+#fbxImageRoller .group_container:first-child {
+	margin-top: 14px;
+}
+
+#fbxImageRoller .group_title {
+	min-height: 6em;
+}
+
+/*#fbxImageRoller .img_container:before
+{
+	border: 1px solid rgba(0,0,0,0.15);
+	bottom: 0;
+	content: '';
+	display: block;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+} */
+
+#fbxImageRoller .img_caption {
+	min-height: 4em;
+	width: 100%;
+}
+
+
+.titleArea
+{
+	text-align: center;
+	width: 100%;
+}
+
+.titleArea h2
+{
+	color: #444;
+	font-family: 'Merriweather',serif;
+	font-size: 1.7em;
+	font-weight: 300;
+}
+
+#fbx_frontpage
+{
+	display: table;
+	background-color: white;
+	width: 100%;
+}
+
+#fbx_frontpage div.inner
+{
+	display: table-cell;
+	vertical-align: middle;
+}

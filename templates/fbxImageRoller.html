@@ -1,8 +1,12 @@
 <div id="fbxImageRoller" >
 	<div ng-repeat="pos in imageGroups">
-		<div ng-repeat="image in images | filter:pos:true"  pos="{{pos}}">
-			<div class="img_container">
+		<div class="group_container" pos="{{pos}}">
+			<div class="group_title">
+				<h3>Group {{pos}}</h3>
+			</div>
+			<div ng-repeat="image in images | filter:pos:true">
 				<img ng-src="{{image.src}}" class="lazy" />
+				<div class="img_caption"></div>
 			</div>
 		</div>
 	</div>

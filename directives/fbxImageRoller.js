@@ -6,7 +6,7 @@ angular.module('app')
 		templateUrl: 'templates/fbxImageRoller.html',
 		link: function(scope, element, attrs) {
 
-			var scrollPane;
+			var scrollPane, currentPos;
 			scope.images = [], scope.imageGroups = [];
 
 			scope.$on('trackLoaded', function(){
@@ -25,10 +25,13 @@ angular.module('app')
 						return $.grep(scope.images, function(e){ return e.pos == pos; });
 					}
 
-					scrollPane = $('#entryListing').jScrollPane({
+					scrollPane = $('#entryListing').bind('jsp-scroll-y', handleScroll).jScrollPane({
 					    'showArrows': false,
 						verticalDragMinHeight: 30,
-						autoReinitialise: false
+						autoReinitialise: false,
+					    animateDuration : 1000,
+					    animateEase : 'swing',
+					    animateComplete: callMe
 					});
 
 					$('.jspScrollable').mouseenter(function(){
@@ -37,13 +40,41 @@ angular.module('app')
 					$('.jspScrollable').mouseleave(function(){
 					    $(this).find('.jspDrag').stop(true, true).fadeOut('slow');
 					});
+
+					$('#fbxImageRoller img').scroll(function() {
+						console.log("image clicked");
+					});
 				}
 			});
 
 			scope.$on('jumpTo', function(event, args) {
-				var api = scrollPane.data('jsp');
-				api.scrollToElement($('#fbxImageRoller').find('div[pos=' + args.pos + ']')[0], true, true);
+				if(args.source !== 'imageRoller') {
+					scrollPane.unbind('jsp-scroll-y');
+					var api = scrollPane.data('jsp');
+					api.scrollToElement($('#fbxImageRoller').find('div[pos=' + args.pos + ']')[0], true, true);
+				}	
 			});
+
+			function handleScroll() {
+				$('#entryListing div.group_container').each(function(index) {
+					
+					var offset = $(this).offset().top,
+					height = $(this).height(),
+					pos = $(this).attr('pos'),
+					threshold = $(window).height() - ($(window).height() / 3);
+
+					if(offset < threshold && (offset + height) > threshold) {
+						if(pos != MapService.currentPos()) {
+          					rootScope.$broadcast('jumpTo', {pos:pos, source:'imageRoller'});
+          					return false;
+						}
+					}
+				});
+			}
+
+			function callMe() {
+				scrollPane.bind('jsp-scroll-y', handleScroll);
+			}
 		}
 	}
 }]);

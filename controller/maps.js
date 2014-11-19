@@ -60,6 +60,10 @@ angular.module('app').controller('MapController', ['$scope', '$rootScope', 'MapS
     if(MapService.current().pan) {
       panToCurrent();
     }
+
+    if(MapService.current().images) {
+      rootScope.$broadcast('jumpTo', {pos:MapService.currentPos(), source:'map'});
+    }
   });
 
   scope.$on('mapResized', function(){
@@ -74,23 +78,25 @@ angular.module('app').controller('MapController', ['$scope', '$rootScope', 'MapS
   });
 
   scope.$on('jumpTo', function(event, args) {
-    var forward = MapService.currentPos() < args.pos;
 
-      while(MapService.currentPos() != args.pos) {
-        if(forward) {
-            MapService.nextEntry();
-            MapService.current().line.setOptions({strokeColor: colActive, strokeWeight: 3, zIndex: 9999});
-        }
-        else {
-          MapService.prevEntry();
-          MapService.previous().line.setOptions({strokeColor: colInactive, strokeWeight: 2, zIndex: 5});
-        }
+    if(args.source !== 'map') {
 
-      setMarkerToCurrent();
+      var forward = MapService.currentPos() < args.pos;
 
-      if(MapService.current().pan) {
-        panToCurrent();
+        while(MapService.currentPos() != args.pos) {
+          if(forward) {
+              MapService.nextEntry();
+              MapService.current().line.setOptions({strokeColor: colActive, strokeWeight: 3, zIndex: 9999});
+          }
+          else {
+            MapService.prevEntry();
+            MapService.previous().line.setOptions({strokeColor: colInactive, strokeWeight: 2, zIndex: 5});
+          }
+
+        setMarkerToCurrent();
       }
+      
+      panToCurrent();
     }
   });
 
