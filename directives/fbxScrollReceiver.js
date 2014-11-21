@@ -15,7 +15,10 @@ angular.module('app').directive('fbxScrollReceiver', ['$rootScope', 'MapService'
         else {
           if(MapService.prevEntry())
             rootScope.$broadcast('crtPosChanged', {next: false});
+        }
 
+        if(MapService.current().images) {
+          rootScope.$broadcast('jumpTo', {pos:MapService.currentPos(), source:'scrollReceiver'});
         }
 
         rootScope.$broadcast('globalScroll');

@@ -20,7 +20,6 @@
         <link href="css/material-wfont.css" rel="stylesheet">
         <link href="css/maps.css" rel="stylesheet">
         <link href="css/material-wfont.css" rel="stylesheet">
-        <link href="css/cprLoadingBar.css" rel="stylesheet">
         <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
 
         <script type="text/javascript" src="js/vendor/jquery-2.1.1.min.js"></script>
@@ -57,7 +56,6 @@
         <script type="text/javascript" src="directives/fbxElevationDiagram.js"></script>
         <script type="text/javascript" src="directives/fbxImageRoller.js"></script>
         <script type="text/javascript" src="directives/fbxMenuVisability.js"></script>
-        <script type="text/javascript" src="directives/cprLoadingBar.js"></script>
 
         <!-- Controller -->
         <script type="text/javascript" src="controller/maps.js"></script>
@@ -81,19 +79,15 @@
             
             <div id="scaffold">
 
-                <div id="fbx_menuBar" class="navbar navbar-default">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="javascript:void(0)">Dürnbach</a>
-                        
-                        <div style="position:absolute;right:0" id="fbx_diagram">
-                        </div>
+                <div id="fbx_menuBar">
+                    <div id="fbx_diagram">
                     </div>
                 </div>
                 <!-- <div ng-include='"../views/entryListing.html"'></div> -->
                 <div id="entryListing" ng-controller="EntryListingController" fbx-menu-visability>
                     <div id="entryWrapper">
                         <div id="scrollable" fbx-elevation-diagram>
-                            <div id="fbx_frontpage">
+                            <div id="fbx_frontpage" pos="0">
                                 <div class="inner">
                                     <div class="titleArea">
                                         <h1>Haidsteig</h1>

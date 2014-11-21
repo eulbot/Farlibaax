@@ -56,11 +56,11 @@ angular.module('app')
 			});
 
 			function handleScroll() {
-				$('#entryListing div.group_container').each(function(index) {
+				$('#fbx_frontpage, #entryListing div.group_container').each(function(index) {
 					
 					var offset = $(this).offset().top,
 					height = $(this).height(),
-					pos = $(this).attr('pos'),
+					pos = parseInt($(this).attr('pos')),
 					threshold = $(window).height() - ($(window).height() / 3);
 
 					if(offset < threshold && (offset + height) > threshold) {
@@ -70,6 +70,13 @@ angular.module('app')
 						}
 					}
 				});
+
+				if($('#fbx_titleDiagram').offset().top * -1 > 180) 
+					$('#fbx_menuBar').slideDown();
+
+				if($('#fbx_titleDiagram').offset().top * -1 < 80) 
+					$('#fbx_menuBar').slideUp();
+				
 			}
 
 			function callMe() {

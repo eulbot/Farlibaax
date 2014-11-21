@@ -113,7 +113,7 @@ app.factory('MapService', ['$rootScope', function(rootScope) {
  		if(crtPos + PAN_STEP < trip.length)
  			return trip[crtPos + PAN_STEP];
  		else
- 			return trip[length - 1];
+ 			return trip[trip.length - 1];
  	},
     images: function() {
         return images;
