@@ -1,1 +1,1 @@
-var app = angular.module('app', ['ngRoute', 'angular.filter']);
+var app = angular.module('app', ['ngAnimate', 'ngRoute', 'angular.filter']);

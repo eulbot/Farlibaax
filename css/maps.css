@@ -31,9 +31,34 @@ div:focus
 	right: 0;
 	top: 0;
 	z-index: 50;
+	color: #eee;
 	background-color: #333;
 	height: 90px;
 	display: none;
+}
+
+#fbx_menuBar .title_container {
+	float: left;
+	padding-top: 14px;
+	padding-left: 14px;	
+}
+
+#fbx_menuBar .title_container > span {
+	display: block;
+}
+
+#fbx_menuBar .title {
+	color: #ddd;
+	font-size: 16pt;
+	margin: 0;
+}
+
+#fbx_menuBar .location {
+	color: #eee;
+	font-family: 'Merriweather',serif;
+	font-size: 14pt;
+	font-weight: 300;
+	margin: 0;
 }
 
 #fbx_diagram
@@ -46,8 +71,7 @@ div:focus
 #fbx_titleDiagram
 {
 	display: block;
-	margin-bottom: 75px;
-	height: 250px;
+	height: 220px;
 }
 
 #scaffold
@@ -141,8 +165,58 @@ div:focus
 	width: 100%;
 }
 
+#fbx_titleDiagram {
+	padding-top: 1em;
+	width: 100%;
+	text-align: center;
+}
+
+#fbx_titleDiagram > div {
+	display: inline-block;
+}
+
 #fbx_frontpage div.inner
 {
 	display: table-cell;
 	vertical-align: middle;
+}
+
+#fbx_frontpage .tripInfo
+{
+	width: 100%;
+	text-align: center;
+}
+#fbx_frontpage .tripInfo ul
+{
+	padding: 0;
+	display: inline-block;
+	margin-bottom: 5em;
+}
+
+#fbx_frontpage .tripInfo li
+{
+	float:left;
+    list-style-type: none;
+    padding: 1.5em;
+}
+
+
+/* After the transition this will be the only class remaining */
+.fadein {
+  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
+  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
+  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
+  opacity: 1; /* Default value but added for clarity */
+}
+
+/* Initial state when showing */
+.fadein.ng-hide-remove {
+  opacity: 0;
+  display: block !important;
+}
+
+/* Will transition towards this state */
+.fadein.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
 }

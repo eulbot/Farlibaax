@@ -1,4 +1,4 @@
-angular.module('app').directive('fbxScrollReceiver', ['$rootScope', 'MapService', function(rootScope, MapService) {
+angular.module('app').directive('fbxScrollReceiver', ['$rootScope', 'fbxService', function(rootScope, fbxService) {
   return {
     link: function(scope, element, attrs) {
 
@@ -7,18 +7,18 @@ angular.module('app').directive('fbxScrollReceiver', ['$rootScope', 'MapService'
         var crtPosChanged = false;
 
         if (e.originalEvent.wheelDelta < 0 || e.originalEvent.detail > 0) {
-          crtPosChanged = MapService.nextEntry();
+          crtPosChanged = fbxService.nextEntry();
           
           if(crtPosChanged)
             rootScope.$broadcast('crtPosChanged', {next: true});
         }
         else {
-          if(MapService.prevEntry())
+          if(fbxService.prevEntry())
             rootScope.$broadcast('crtPosChanged', {next: false});
         }
 
-        if(MapService.current().images) {
-          rootScope.$broadcast('jumpTo', {pos:MapService.currentPos(), source:'scrollReceiver'});
+        if(fbxService.current().images) {
+          rootScope.$broadcast('jumpTo', {pos:fbxService.currentPos(), source:'scrollReceiver'});
         }
 
         rootScope.$broadcast('globalScroll');

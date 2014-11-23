@@ -49,7 +49,9 @@
         <script type="text/javascript" src="config/app.js"></script>
         <script type="text/javascript" src="config/config.js"></script>
         <script type="text/javascript" src="config/routes.js"></script>
-        <script type="text/javascript" src="config/service.js"></script>
+
+        <!-- Service -->
+        <script type="text/javascript" src="service/fbxService.js"></script>
 
         <!-- Directives -->
         <script type="text/javascript" src="directives/fbxScrollReceiver.js"></script>
@@ -60,7 +62,7 @@
 
         <!-- Controller -->
         <script type="text/javascript" src="controller/fbxMainController.js"></script>
-        <script type="text/javascript" src="controller/maps.js"></script>
+        <script type="text/javascript" src="controller/fbxMapController.js"></script>
 
         <!-- Dunno -->
         <script type="text/javascript" src="js/plugins.js"></script>
@@ -75,12 +77,16 @@
         <div ng-controller="fbxMainController">
 
             <div id="fbx_mapContainer">
-                <div id="fbx_map" ng-controller="MapController"></div>
+                <div id="fbx_map" ng-controller="fbxMapController"></div>
             </div>
             
             <div id="scaffold">
 
                 <div id="fbx_menuBar">
+                    <div class="title_container">
+                        <span><span class="title">{{trackTitle}}</span>, {{tripDate | date:'shortDate'}}</span>
+                        <span class="location">{{trackLocation}}</span>
+                    </div>
                     <div id="fbx_diagram">
                     </div>
                 </div>
@@ -91,11 +97,20 @@
                             <div id="fbx_frontpage" pos="0">
                                 <div class="inner">
                                     <div class="titleArea">
-                                        <h1>Haidsteig</h1>
-                                        <h2>Prain an der Rax</h2>
-                                        <h3>26. September 2014</h3> 
+                                        <h1>{{trackTitle}}</h1>
+                                        <h2>{{trackLocation}}</h2>
                                     </div>
                                     <div id="fbx_titleDiagram">
+                                        <div>
+                                        </div>
+                                    </div> 
+                                    <div class="tripInfo">
+                                        <ul>
+                                            <li>{{tripDate | date:'longDate'}}</li>
+                                            <li>Ascent: <b>{{ascent | number:0}}m</b></li>
+                                            <li>Descent: <b>{{descent | number:0}}m</b></li>
+                                            <li>Images: <b>{{loadedImages}}</b> / {{imageLength}}</li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>

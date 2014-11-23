@@ -5,7 +5,7 @@
 				<h3>Group {{pos}}</h3>
 			</div>
 			<div ng-repeat="image in images | filter:pos:true">
-				<img ng-src="{{image.src}}" class="lazy" />
+				<img ng-src="{{image.src}}" class="lazy" fbx-refresh-scroll />
 				<div class="img_caption"></div>
 			</div>
 		</div>

@@ -1,5 +1,5 @@
 
-angular.module('app').directive('fbxCenterMap', ['$rootScope', 'MapService', function(rootScope, MapService) {
+angular.module('app').directive('fbxCenterMap', ['$rootScope', 'fbxService', function(rootScope, fbxService) {
   return {
     link: function(scope, element, attrs) {
 

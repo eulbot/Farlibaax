@@ -10,8 +10,8 @@
 		zoom: 16, 
 		zoomControl: true,
 		zoomControlOptions: {
-			tyle: google.maps.ZoomControlStyle.LARGE,
-			position: google.maps.ControlPosition.RIGHT_TOP
+			//tyle: google.maps.ZoomControlStyle.LARGE,
+			//position: google.maps.ControlPosition.RIGHT_TOP
 		},
 		streetViewControl: false,
 		scrollwheel: false, 
@@ -49,13 +49,78 @@
 		visible: true
 	}
 
+	var chartOptions = {
+		height: 90,
+		width:300,
+		legend: 'none',
+		pointSize: 0,
+		curveType: "function",
+		enableInteractivity: false,
+		chartArea: {
+			top:5,
+			left: 5,
+			right: 0,
+			height:75,
+			width:295
+		},
+		tooltip: {
+			trigger: 'none'},
+		hAxis: {
+			baselineColor: 'transparent',
+			gridlines:{count:0}},
+		vAxis: {
+			baselineColor: 'transparent',
+			textPosition:'none',
+			gridlines:{count:0}
+		},
+		backgroundColor: { fill:'transparent' },
+		series: {
+			0:{color: '#eee', visibleInLegend: false, lineWidth: 1, areaOpacity:0.15},
+ 			1:{color: '#f44336', visibleInLegend: false, lineWidth: 2},
+ 			2:{color: '#f44336', visibleInLegend: false, pointSize: 5}
+ 		}
+	}
+
+	var titleChartOptions = {
+		height: 220,
+		width:700,
+		legend: 'none',
+		pointSize: 0,
+		curveType: "function",
+		enableInteractivity: false,
+		chartArea: {
+			backgroundColor: 'white',
+			top:15,
+			bottom: 15,
+			height:190,
+			left: 100,
+			right: 100,
+			width:500
+		},
+		hAxis: {
+			gridlines:{count:0}},
+			baselineColor: '#fff',
+		vAxis: {
+			baselineColor: '#fff',
+			gridlines:{count:6, color:'#ddd'}
+		},
+		series: {
+			0:{color: '#333', lineWidth: 2, areaOpacity:0.15},
+ 			1:{color: '#333', lineWidth: 2, areaOpacity:0.15}
+ 		}
+	}
+
 	var config = {
+		colActive: colActive,
+		colInactive: colInactive,
         mapOptions: mapOptions,
         photoIcon: photoIcon,
         markerOptions: markerOptions,
-        lineOptions: lineOptions
+        lineOptions: lineOptions,
+        chartOptions: chartOptions,
+        titleChartOptions: titleChartOptions
     };
-	
+
 	app.value('config', config);
 
 })();

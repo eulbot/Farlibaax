@@ -1,21 +1,33 @@
 var app = angular.module('app');
 
-app.factory('MapService', ['$rootScope', function(rootScope) {
+app.factory('fbxService', ['$rootScope', function(rootScope) {
 
-	var SAMPLE_TRASHOLD = 300, PAN_STEP = 10, crtPos = 0, prevPos = -1, trip = [], images = [];
+	var SAMPLE_TRASHOLD = 300, 
+		PAN_STEP = 10, 
+		crtPos = 0, 
+		prevPos = -1, 
+		trip = [],
+		images = [], 
+		startDate, 
+		endDate, 
+		ascent = 0, 
+		descent = 0;
 	
-	var parseKmlFile = function (callback) {
+	var loadTrack = function (trackpath, callback) {
 
 		// Load the elevation service
 		var elevator = new google.maps.ElevationService();
 		var pathRequest, path = [];
 
-		$.get('/kml/Haidsteig.xml', function(xml) {
+		$.get(trackpath, function(xml) {
 
 			$(xml).find("gx\\:Track, Track").find("gx\\:coord, coord").each(function(i) {
 
 				path.push(new google.maps.LatLng($(this).html().split(' ')[1], $(this).html().split(' ')[0]));
 			});
+
+			startDate = Date.parse($(xml).find("gx\\:Track, Track").find("gx\\:coord, coord").first().prev().html());
+			endDate = Date.parse($(xml).find("gx\\:Track, Track").find("gx\\:coord, coord").last().prev().html());
 
 			if(path.length > SAMPLE_TRASHOLD) {
 
@@ -41,6 +53,14 @@ app.factory('MapService', ['$rootScope', function(rootScope) {
 				for (var i = 0; i < results.length; i++) {
 					var pan = i % PAN_STEP == 0 ? true : false;
 					trip.push({location:results[i].location, elevation:results[i].elevation, pan:pan});
+
+					if(i > 0) {
+						var dif = parseFloat(results[i].elevation - results[i - 1].elevation)
+						if(dif >= 0)
+							ascent = ascent + dif;
+						else
+							descent = descent + (dif * -1)
+					}
 				}
 
 				if(callback)
@@ -49,9 +69,9 @@ app.factory('MapService', ['$rootScope', function(rootScope) {
 		}, 'xml');
 	};
 
-	var parseImages = function(callback) {
+	var loadImages = function(imagepath, callback) {
 
-	 	$.get('/kml/images.xml', function(xml) {
+	 	$.get(imagepath, function(xml) {
 	 		$(xml).find("images image").each(function(i) {
 
 	 			if(!trip[$(this).attr('pos')].images)
@@ -61,18 +81,16 @@ app.factory('MapService', ['$rootScope', function(rootScope) {
 	            images.push({pos: $(this).attr('pos'), src:$(this).html(),alt:$(this).attr('alt')});
 	 		});
 
-	 		rootScope.$broadcast('trackLoaded');
-
 	 		if(callback)
 	 			callback(images);
+	 		
+	 		rootScope.$broadcast('trackLoaded');
 	 	}, 'xml');
 	 };
 
-	//parseKmlFile();
-
 	return {
-		loadTrack: parseKmlFile,
-		loadImages: parseImages,
+		loadTrack: loadTrack,
+		loadImages: loadImages,
 	 	all: function() {
 	 		return trip;
 	 	},
@@ -123,6 +141,18 @@ app.factory('MapService', ['$rootScope', function(rootScope) {
 	 	},
 	    images: function() {
 	        return images;
+	    },
+	    tripDate: function() {
+	    	return startDate;
+	    },
+	    tripDuration: function() {
+	    	return endDate - startDate;
+	    },
+	    ascent: function() {
+	    	return ascent;
+	    },
+	    descent: function() {
+	    	return descent;
 	    }
 	};
 

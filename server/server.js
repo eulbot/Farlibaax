@@ -1,10 +1,6 @@
 var connect = require('connect');
-var modRewrite = require('connect-modrewrite');
 
 var server = connect()
-	.use(modRewrite([
-	    '^/test$ /index.html'
-	  ]))
 	.use(connect.static(__dirname + '/..')).
     listen(8081);
 
