@@ -47,6 +47,7 @@
        
         <!-- App configs -->
         <script type="text/javascript" src="config/app.js"></script>
+        <script type="text/javascript" src="config/config.js"></script>
         <script type="text/javascript" src="config/routes.js"></script>
         <script type="text/javascript" src="config/service.js"></script>
 
@@ -58,8 +59,8 @@
         <script type="text/javascript" src="directives/fbxMenuVisability.js"></script>
 
         <!-- Controller -->
+        <script type="text/javascript" src="controller/fbxMainController.js"></script>
         <script type="text/javascript" src="controller/maps.js"></script>
-        <script type="text/javascript" src="controller/entryListing.js"></script>
 
         <!-- Dunno -->
         <script type="text/javascript" src="js/plugins.js"></script>
@@ -71,7 +72,7 @@
 
         <!-- Partials and Templates -->
         <!-- <div ng-include src='"partials/body.html"'> -->
-        <div>
+        <div ng-controller="fbxMainController">
 
             <div id="fbx_mapContainer">
                 <div id="fbx_map" ng-controller="MapController"></div>
@@ -84,7 +85,7 @@
                     </div>
                 </div>
                 <!-- <div ng-include='"../views/entryListing.html"'></div> -->
-                <div id="entryListing" ng-controller="EntryListingController" fbx-menu-visability>
+                <div id="entryListing" fbx-menu-visability>
                     <div id="entryWrapper">
                         <div id="scrollable" fbx-elevation-diagram>
                             <div id="fbx_frontpage" pos="0">
