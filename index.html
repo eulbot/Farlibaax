@@ -20,6 +20,7 @@
         <link href="css/material-wfont.css" rel="stylesheet">
         <link href="css/maps.css" rel="stylesheet">
         <link href="css/material-wfont.css" rel="stylesheet">
+        <link href="css/svgicons.css" rel="stylesheet">
         <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
 
         <script type="text/javascript" src="js/vendor/jquery-2.1.1.min.js"></script>
@@ -39,7 +40,7 @@
             google.load('visualization', '1', {packages: ['corechart']});
         </script>
     </head>
-    <body ng-app="app" fbx-scroll-receiver fbx-center-map>
+    <body ng-app="app" fbx-center-map>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -56,6 +57,7 @@
         <!-- Directives -->
         <script type="text/javascript" src="directives/fbxScrollReceiver.js"></script>
         <script type="text/javascript" src="directives/fbxCenterMap.js"></script>
+        <script type="text/javascript" src="directives/fbxLockMap.js"></script>
         <script type="text/javascript" src="directives/fbxElevationDiagram.js"></script>
         <script type="text/javascript" src="directives/fbxImageRoller.js"></script>
         <script type="text/javascript" src="directives/fbxMenuVisability.js"></script>
@@ -77,6 +79,7 @@
         <div ng-controller="fbxMainController">
 
             <div id="fbx_mapContainer">
+                <span class="lockMapSpan" fbx-lock-map></span>
                 <div id="fbx_map" ng-controller="fbxMapController"></div>
             </div>
             

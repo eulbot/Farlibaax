@@ -81,7 +81,7 @@ div:focus
 	box-shadow: 0 0 15px 0 #333;
 	position: absolute;
 	height: 100%;
-	min-width: 700px;
+	min-width: 500px;
 	outline-right: 1px solid #aaa;
 	width: 38%;
 }
@@ -219,4 +219,43 @@ div:focus
 /* Will transition towards this state */
 .fadein.ng-hide-remove.ng-hide-remove-active {
   opacity: 1;
+}
+
+.lockMapSpan {
+	position: absolute;
+    overflow: hidden;
+	//background-clip: padding-box;
+	box-shadow: 0px 1px 4px rgba(0,0,0,0.3);
+    width: 30px;
+    height: 30px;
+    margin: 15px;
+    z-index: 99;
+}
+
+.lockMapSpan > svg {
+	position: absolute;
+    background-color: rgba(255,255,255,1);
+    display: block;
+    z-index: 99;
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    padding: 4px; 
+    z-index: 100;
+}
+
+.lockMapSpan > svg > path {
+	width: 2em;
+	height: 2em;
+	fill: #555;
+}
+
+.lockMapSpan.deselected > svg > path {
+	fill: #bbb;
+}
+
+.lockMapSpan:hover > svg > path {
+	fill: #222;
 }

@@ -8,13 +8,11 @@
 
 	var mapOptions = {
 		zoom: 16, 
-		zoomControl: true,
 		zoomControlOptions: {
 			//tyle: google.maps.ZoomControlStyle.LARGE,
 			//position: google.maps.ControlPosition.RIGHT_TOP
 		},
 		streetViewControl: false,
-		scrollwheel: false, 
 		disableDefaultUI: true,
 		mapTypeId: google.maps.MapTypeId.TERRAIN
 	}
