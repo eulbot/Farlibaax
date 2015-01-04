@@ -1,12 +1,49 @@
+<style type="text/css">
+	.group_title {
+		padding: 6pt;
+	}
+
+	.group_title .title {
+		font-size: 18pt;
+		padding: 6pt 0 6pt 0;
+		font-family: 'Merriweather',serif;
+	}
+
+	.group_title .time, .group_title .elevation {
+		float: left;
+		display: table-cell;
+		font-weight: bold;
+		padding-right: 0.5em;
+		font-family: 'Merriweather',serif;
+	}
+
+	.group_title .caption {
+		padding-top: 3pt;
+		text-align: justify;
+		clear: both;
+	}
+
+	.group_title .icon {
+		width: 20px;
+		float: left;
+		fill: #666;
+		padding-right: 1px;
+		margin-right: 2px;
+	}
+</style>
+
 <div id="fbxImageRoller" >
-	<div ng-repeat="pos in imageGroups">
-		<div class="group_container" pos="{{pos}}">
+	<div ng-repeat="group in groups">
+		<div class="group_container" pos="{{group.pos}}">
 			<div class="group_title">
-				<h3>Group {{pos}}</h3>
+				<div class="title">{{group.title | uppercase}}</div>
+				<div class="icon" fbx-icon-clock style="width:14px"></div><div class="time">{{group.time}}h</div>
+				<div class="icon" fbx-icon-mountain></div><div class="elevation">{{group.elevation | number:0}}m</div>
+				<div class="caption">{{group.caption}}</div>
 			</div>
-			<div ng-repeat="image in images | filter:pos:true">
+			<div ng-repeat="image in group.images">
 				<img ng-src="{{image.src}}" class="lazy" fbx-refresh-scroll />
-				<div class="img_caption"></div>
+				<div class="img_caption">{{image.caption}}</div>
 			</div>
 		</div>
 	</div>

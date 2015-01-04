@@ -3,18 +3,37 @@
 
 	var app = angular.module('app');
 
-	var colActive = '#f44336'
-	, colInactive = '#333';
+	var colActive = '#f44336',
+	colInactive = '#333';
 
 	var mapOptions = {
 		zoom: 16, 
-		zoomControlOptions: {
-			//tyle: google.maps.ZoomControlStyle.LARGE,
-			//position: google.maps.ControlPosition.RIGHT_TOP
-		},
 		streetViewControl: false,
 		disableDefaultUI: true,
 		mapTypeId: google.maps.MapTypeId.TERRAIN
+	}
+
+	var mapOptionsLocked = {
+		draggable: false,
+		streetViewControl: false,
+		disableDefaultUI: true,
+    	scrollwheel: false
+	}
+
+	var mapOptionsUnlocked = {
+		draggable: true,
+		streetViewControl: true,
+		disableDefaultUI: false,
+    	scrollwheel: true,
+	    streetViewControlOptions: {
+	        position: google.maps.ControlPosition.RIGHT_TOP
+	    },
+		zoomControlOptions: {
+			position: google.maps.ControlPosition.RIGHT_TOP
+		},
+	    panControlOptions: {
+	        position: google.maps.ControlPosition.RIGHT_TOP
+	    }
 	}
 
 	var photoIcon = {
@@ -48,18 +67,18 @@
 	}
 
 	var chartOptions = {
-		height: 90,
-		width:300,
+		height: 85,
+		width:200,
 		legend: 'none',
 		pointSize: 0,
 		curveType: "function",
 		enableInteractivity: false,
 		chartArea: {
 			top:5,
-			left: 5,
+			left: 0,
 			right: 0,
-			height:75,
-			width:295
+			height:85,
+			width:200
 		},
 		tooltip: {
 			trigger: 'none'},
@@ -73,7 +92,7 @@
 		},
 		backgroundColor: { fill:'transparent' },
 		series: {
-			0:{color: '#eee', visibleInLegend: false, lineWidth: 1, areaOpacity:0.15},
+			0:{color: '#333', visibleInLegend: false, lineWidth: 1, areaOpacity:0.15},
  			1:{color: '#f44336', visibleInLegend: false, lineWidth: 2},
  			2:{color: '#f44336', visibleInLegend: false, pointSize: 5}
  		}
@@ -112,6 +131,8 @@
 		colActive: colActive,
 		colInactive: colInactive,
         mapOptions: mapOptions,
+        mapOptionsLocked: mapOptionsLocked,
+        mapOptionsUnlocked: mapOptionsUnlocked,
         photoIcon: photoIcon,
         markerOptions: markerOptions,
         lineOptions: lineOptions,

@@ -5,18 +5,17 @@ angular.module('app').directive('fbxElevationDiagram', ['$rootScope', 'fbxServic
 			var map, chart, titleChart, elevator, data, currentPos = 0;
 
 			function init() {
-				/* elevator = new google.maps.ElevationService(); */
+				console.log("init called");
 				chart = new google.visualization.AreaChart(document.getElementById('fbx_diagram'));
 				titleChart = new google.visualization.AreaChart($('#fbx_titleDiagram > div')[0]);
 				initializeTable();
 				fillDataTable();
-
-				// Draw the chart using the data within its DIV.
 				chart.draw(data, config.chartOptions);
 
 				var fixedData = data;
 				fixedData.setCell(0, 3, null);
 				titleChart.draw(fixedData, config.titleChartOptions);
+				console.log("drawed with " + fbxService.all().length + " data points");
 			}
 
 			function initializeTable() {
@@ -79,14 +78,8 @@ angular.module('app').directive('fbxElevationDiagram', ['$rootScope', 'fbxServic
 	  			}
   			});
 
-			$(document).ready(function(){
-				if(fbxService.all().length > 0)
-					init();
-			});
-
 			scope.$on('trackLoaded', function(){
-				if (document.readyState == 'complete')
-					init();
+				init();
 			});
 		}
 	}

@@ -19,13 +19,14 @@
 
 		function getTripInfo() {
 			scope.$apply(function() {
-				scope.images = fbxService.images();
-				scope.imageGroups = [];
+				scope.groups = fbxService.groups();
+				//scope.imageGroups = [];
 				scope.tripDate = fbxService.tripDate();
 				scope.ascent = fbxService.ascent();
 				scope.descent = fbxService.descent();
-				scope.imageLength = scope.images.length;
+				scope.imageLength = fbxService.imageLength();
 				scope.loadedImages = 0;
+				scope.mapLocked = true;
 			});
 		}
 

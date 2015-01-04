@@ -7,7 +7,8 @@ app.factory('fbxService', ['$rootScope', function(rootScope) {
 		crtPos = 0, 
 		prevPos = -1, 
 		trip = [],
-		images = [], 
+		groups = [],
+		imageLength = 0, 
 		startDate, 
 		endDate, 
 		ascent = 0, 
@@ -72,17 +73,26 @@ app.factory('fbxService', ['$rootScope', function(rootScope) {
 	var loadImages = function(imagepath, callback) {
 
 	 	$.get(imagepath, function(xml) {
-	 		$(xml).find("images image").each(function(i) {
+	 		$(xml).find('data group').each(function(i) {
 
-	 			if(!trip[$(this).attr('pos')].images)
-	 				trip[$(this).attr('pos')].images = [];
+	 			var group = {};
+	 			group.pos = $(this).attr('pos');
+	 			group.title = $(this).attr('title');
+	 			group.time = $(this).attr('time');
+	 			group.caption = $(this).attr('caption');
+	 			group.elevation = trip[group.pos].elevation;
+	 			group.images = [];
 
-	 			trip[$(this).attr('pos')].images.push({src:$(this).html(),alt:$(this).attr('alt')});
-	            images.push({pos: $(this).attr('pos'), src:$(this).html(),alt:$(this).attr('alt')});
+	 			$(this).find('image').each(function(j) {	 				
+	 				trip[group.pos].hasImages = true;
+	 				imageLength = imageLength +1; 
+	            	group.images.push({pos: group.pos, src:$(this).html(),caption:$(this).attr('caption')});
+	 			});
+	 			groups.push(group);
 	 		});
 
 	 		if(callback)
-	 			callback(images);
+	 			callback(groups);
 	 		
 	 		rootScope.$broadcast('trackLoaded');
 	 	}, 'xml');
@@ -139,9 +149,12 @@ app.factory('fbxService', ['$rootScope', function(rootScope) {
 	 		else
 	 			return trip[trip.length - 1];
 	 	},
-	    images: function() {
-	        return images;
-	    },
+	 	groups: function() {
+	 		return groups;
+	 	},
+	 	imageLength: function() {
+	 		return imageLength;
+	 	},
 	    tripDate: function() {
 	    	return startDate;
 	    },

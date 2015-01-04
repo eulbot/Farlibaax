@@ -3,20 +3,20 @@ angular.module('app')
 	.directive('fbxImageRoller', ['$rootScope', 'fbxService', function(rootScope, fbxService) {
 		return {
 			templateUrl: 'templates/fbxImageRoller.html',
-			controller: function($scope) {
-				var ct, scope = $scope, scrollPane;
+			controller: function($scope, $element) {
+				var ct, scope = $scope, scrollPane, ds = false;
 
-				scope.$watch(function() {return scope.images}, function(){
-					if (scope.images) {
+				scope.$watch(function() {return scope.groups}, function(){
+					if (scope.groups) {
 		
-						for(var i = 0; i < scope.images.length; i++) {
+						/*for(var i = 0; i < scope.images.length; i++) {
 							if($.inArray(scope.images[i].pos, scope.imageGroups) === -1)
 								scope.imageGroups.push(scope.images[i].pos);
 						}
 
 						scope.imageGroup = function(pos) {
 							return $.grep(scope.images, function(e){ return e.pos == pos; });
-						}
+						}*/
 
 						scrollPane = $('#entryListing').bind('jsp-scroll-y', handleScroll).jScrollPane({
 						    'showArrows': false,
@@ -27,10 +27,10 @@ angular.module('app')
 						    animateComplete: registerHandler
 						});
 
-						$('.jspScrollable').mouseenter(function(){
+						$('#entryListing').mouseenter(function(){
 						    $(this).find('.jspDrag').stop(true, true).fadeIn('slow');
 						});
-						$('.jspScrollable').mouseleave(function(){
+						$('#entryListing').mouseleave(function(){
 						    $(this).find('.jspDrag').stop(true, true).fadeOut('slow');
 						});
 					}
@@ -42,6 +42,12 @@ angular.module('app')
 						var api = scrollPane.data('jsp');
 						api.scrollToElement($('#fbxImageRoller').find('div[pos=' + args.pos + ']')[0], true, true);
 					}	
+				});
+
+				scope.$on('mapResized', function(event, args) {
+					if(scope.groups) {
+			        	scrollPane.data('jsp').reinitialise();
+					}
 				});
 
 				function handleScroll() {
@@ -59,17 +65,45 @@ angular.module('app')
 							}
 						}
 					});
+				
+					handleDiagramShowState();	
+				}
 
-					if($('#fbx_titleDiagram').offset().top * -1 > 180) 
-						$('#fbx_menuBar').slideDown();
+				function handleDiagramShowState() {
 
-					if($('#fbx_titleDiagram').offset().top * -1 < 80) 
-						$('#fbx_menuBar').slideUp();
-					
+					if(!ds && $('#fbx_titleDiagram').offset().top * -1 > 180) {
+        				$('.lockButtonContainer, .arrowBox').animate({ 
+        					marginTop: '+=100px'}
+        				, 150, function(){
+        					$('.diagramContainer').animate({
+    							left: '0px',
+    							opacity: 0.8
+        					}, 150);
+        				});
+
+        				ds = true;
+        				rootScope.$broadcast('diagramShowStateChanges', {state:ds});
+					}
+
+					if(ds && $('#fbx_titleDiagram').offset().top * -1 < 80) {
+
+						$('.diagramContainer').animate({
+    						left: '-250px',
+    						opacity: 0
+        				}, 150, function() {
+							$('.lockButtonContainer,  .arrowBox').animate({ 
+	        					marginTop: '-=100px'}
+	        				, 200);
+        				});
+
+        				ds = false;
+        				rootScope.$broadcast('diagramShowStateChanges', {state:ds});
+					}
 				}
 
 				function registerHandler() {
 					scrollPane.bind('jsp-scroll-y', handleScroll);
+					handleDiagramShowState();	
 				}
 				
 				this.refreshScroll = function() {
@@ -79,6 +113,7 @@ angular.module('app')
 			        clearTimeout(ct);
 			        ct = setTimeout(function() {
 			        	scrollPane.data('jsp').reinitialise();
+			        	console.log("reinitialised");
 			        }, 100);
 		    	};
 			}

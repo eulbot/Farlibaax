@@ -64,7 +64,6 @@ div:focus
 #fbx_diagram
 {
 	display: block;
-	float: right;
 	padding: 0px;
 }
 
@@ -77,7 +76,7 @@ div:focus
 #scaffold
 {
 	z-index: 1;
-	background-color: #eee;
+	background-color: #f1f1f1;
 	box-shadow: 0 0 15px 0 #333;
 	position: absolute;
 	height: 100%;
@@ -98,6 +97,10 @@ div:focus
 	z-index: 2;
 }
 
+#entryWrapper {
+	width: 730px !important
+}
+
 #entryListing
 {
 	width: 100%;
@@ -108,6 +111,7 @@ div:focus
 #fbxImageRoller img
 {
 	width: 100%;
+	margin-top: 6pt;
 }
 
 #fbxImageRoller .group_container
@@ -116,33 +120,19 @@ div:focus
 	margin: 7px 14px 14px 14px;
 	position: relative;
 	background-color: white;
+	box-shadow: 0 1px 2px rgba(0,0,0,.1);
 }
 
-#fbxImageRoller .group_container:first-child {
+#fbxImageRoller .group_container:first-child  {
 	margin-top: 14px;
 }
 
-#fbxImageRoller .group_title {
-	min-height: 6em;
-}
-
-/*#fbxImageRoller .img_container:before
-{
-	border: 1px solid rgba(0,0,0,0.15);
-	bottom: 0;
-	content: '';
-	display: block;
-	left: 0;
-	position: absolute;
-	right: 0;
-	top: 0;
-} */
-
 #fbxImageRoller .img_caption {
-	min-height: 4em;
+	font-size: 10pt;
+	padding: 2pt 6pt 6pt 6pt;
+	color: #666; 
 	width: 100%;
 }
-
 
 .titleArea
 {
@@ -156,6 +146,13 @@ div:focus
 	font-family: 'Merriweather',serif;
 	font-size: 1.7em;
 	font-weight: 300;
+}
+
+.credits {
+	width: 100%;
+	text-align: center;
+	font-size: 12px;
+	margin-bottom: 2em
 }
 
 #fbx_frontpage
@@ -210,52 +207,115 @@ div:focus
   opacity: 1; /* Default value but added for clarity */
 }
 
-/* Initial state when showing */
 .fadein.ng-hide-remove {
   opacity: 0;
   display: block !important;
 }
 
-/* Will transition towards this state */
 .fadein.ng-hide-remove.ng-hide-remove-active {
   opacity: 1;
 }
 
-.lockMapSpan {
+.lockMapContainer {
 	position: absolute;
-    overflow: hidden;
-	//background-clip: padding-box;
-	box-shadow: 0px 1px 4px rgba(0,0,0,0.3);
-    width: 30px;
-    height: 30px;
     margin: 15px;
     z-index: 99;
 }
 
-.lockMapSpan > svg {
+.diagramContainer {
+	left: -250px;
 	position: absolute;
+    z-index: 99;
+    width: 200px;
+    height: 85px;
+}
+.diagramContainer > *{
+    cursor: default !important; 
+}
+
+.mapControlContainer {
+    overflow: hidden;
+	background-clip: padding-box;
+	box-shadow: 0px 1px 4px rgba(0,0,0,0.3);
+    float: left;
+}
+
+.mapControlContainer > * {
     background-color: rgba(255,255,255,1);
     display: block;
     z-index: 99;
     border-radius: 2px;
     overflow: hidden;
     cursor: pointer;
-    height: 30px;
-    width: 30px;
-    padding: 4px; 
     z-index: 100;
 }
 
-.lockMapSpan > svg > path {
+.lockButtonContainer {
+    width: 30px;
+    height: 30px;
+}
+
+.lockButtonContainer > svg {
+    height: 30px;
+    width: 30px;
+    padding: 4px; 
+}
+
+.mapControlContainer > * > path {
 	width: 2em;
 	height: 2em;
 	fill: #555;
 }
 
-.lockMapSpan.deselected > svg > path {
-	fill: #bbb;
+.mapControlContainer.deselected > * > path {
+	fill: #999;
 }
 
-.lockMapSpan:hover > svg > path {
-	fill: #222;
+.mapControlContainer:hover > * > path {
+	/*fill: #222;*/
+}
+
+.mapControlContainer.mousedown > *{
+	padding-bottom: 3px;
+	padding-top: 5px;
+}
+
+.lockMapContainer .arrowBox {
+	display: none;
+	position: relative;
+	background: #000;
+	color: #eee;
+	padding: 2px 4px;
+	margin-left: 40px;
+	font-size: 11pt;
+	margin-bottom: 10px;
+	margin-top: 3px;
+	box-shadow: 0px 1px 4px rgba(0,0,0,0.3);
+	opacity: 0.8;
+	font-smooth: never;
+	-webkit-font-smoothing : none;
+}
+.lockMapContainer .arrowBox:after, .mapControlContainer  .arrowBox:before {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.lockMapContainer .arrowBox:after {
+	border-color: rgba(68, 68, 68, 0);
+	border-right-color: #111;
+	border-width: 5px;
+	margin-top: -5px;
+}
+
+.lockMapContainer .arrowBox:before {
+	border-color: rgba(51, 51, 51, 0);
+	border-right-color: #111;
+	border-width: 9px;
+	margin-top: -9px;
 }

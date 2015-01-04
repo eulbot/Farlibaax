@@ -1,6 +1,6 @@
 angular.module('app').controller('fbxMapController', ['$scope', '$rootScope', 'fbxService', 'config', function(scope, rootScope, fbxService, config) {
   
-  var map, marker, offset = 700, colActive = '#f44336', colInactive = '#333';
+  var map, marker, offset = 700, colActive = '#f44336', colInactive = '#333', ds;
   
   scope.$on('crtPosChanged', function(event, args) {
 
@@ -52,6 +52,23 @@ angular.module('app').controller('fbxMapController', ['$scope', '$rootScope', 'f
     }
   });
 
+  scope.$on('diagramShowStateChanges', function(event, args) {
+    ds = args.state;
+    panToCurrent();
+  });
+
+  scope.$watch(function(){return scope.mapLocked}, function() {
+    if(map) {
+
+      if(scope.mapLocked) {
+        map.setOptions(config.mapOptionsLocked);
+        panToCurrent();
+      }
+      else
+        map.setOptions(config.mapOptionsUnlocked);
+    }
+  });
+
   google.maps.event.addDomListener(window, 'load', function() {
     if(fbxService.all().length > 0)
       init();
@@ -61,6 +78,7 @@ angular.module('app').controller('fbxMapController', ['$scope', '$rootScope', 'f
 
   function init() {
     map = new google.maps.Map(document.getElementById('fbx_map'), config.mapOptions);
+    map.setOptions(config.mapOptionsLocked);
     map.setCenter(fbxService.current().location);
 
     // Create the marker
@@ -82,7 +100,7 @@ angular.module('app').controller('fbxMapController', ['$scope', '$rootScope', 'f
       }
 
       // Add photo icon if there are some
-      if(entry.images) {
+      if(entry.hasImages) {
 
         var photoMarker = new google.maps.Marker({
           position: entry.location,
@@ -105,6 +123,24 @@ angular.module('app').controller('fbxMapController', ['$scope', '$rootScope', 'f
     });
   };
 
+  // Thanks @iambriansreed 
+  google.maps.Map.prototype.setCenterWithOffset = function(latlng, offsetX, offsetY, pan) {
+    var map = this;
+    var ov = new google.maps.OverlayView();
+    ov.onAdd = function() {
+        var proj = this.getProjection();
+        var aPoint = proj.fromLatLngToContainerPixel(latlng);
+        aPoint.x = aPoint.x+offsetX;
+        aPoint.y = aPoint.y+offsetY;
+        if(pan)
+          map.panTo(proj.fromContainerPixelToLatLng(aPoint));
+        else
+          map.setCenter(proj.fromContainerPixelToLatLng(aPoint));
+    }; 
+    ov.draw = function() {}; 
+    ov.setMap(this); 
+  };
+
   function setMarkerToCurrent() {
 
     // Move marker to current postion
@@ -112,7 +148,14 @@ angular.module('app').controller('fbxMapController', ['$scope', '$rootScope', 'f
   }
 
   function panToCurrent() {
-      map.panTo(fbxService.nextPanEntry().location);
+      if(map && scope.mapLocked) {
+        if(ds)
+          map.setCenterWithOffset(fbxService.nextPanEntry().location, -125, 0, true);
+        else
+          map.panTo(fbxService.nextPanEntry().location);
+
+        map.setZoom(16);
+      }
   }
   
 }]);

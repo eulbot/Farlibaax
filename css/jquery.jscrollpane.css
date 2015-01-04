@@ -53,6 +53,7 @@
 
 .jspDrag
 {
+	display: none;
 	background: #bbd;
 	position: relative;
 	top: 0;
