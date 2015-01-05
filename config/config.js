@@ -67,8 +67,8 @@
 	}
 
 	var chartOptions = {
-		height: 85,
-		width:200,
+		height: 100,
+		width:250,
 		legend: 'none',
 		pointSize: 0,
 		curveType: "function",
@@ -77,8 +77,8 @@
 			top:5,
 			left: 0,
 			right: 0,
-			height:85,
-			width:200
+			height:100,
+			width:250
 		},
 		tooltip: {
 			trigger: 'none'},
@@ -100,7 +100,7 @@
 
 	var titleChartOptions = {
 		height: 220,
-		width:700,
+		width:490,
 		legend: 'none',
 		pointSize: 0,
 		curveType: "function",
@@ -109,10 +109,9 @@
 			backgroundColor: 'white',
 			top:15,
 			bottom: 15,
-			height:190,
-			left: 100,
-			right: 100,
-			width:500
+			height:185,
+			left: 40,
+			width:480
 		},
 		hAxis: {
 			gridlines:{count:0}},

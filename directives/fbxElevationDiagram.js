@@ -5,7 +5,6 @@ angular.module('app').directive('fbxElevationDiagram', ['$rootScope', 'fbxServic
 			var map, chart, titleChart, elevator, data, currentPos = 0;
 
 			function init() {
-				console.log("init called");
 				chart = new google.visualization.AreaChart(document.getElementById('fbx_diagram'));
 				titleChart = new google.visualization.AreaChart($('#fbx_titleDiagram > div')[0]);
 				initializeTable();
@@ -15,7 +14,6 @@ angular.module('app').directive('fbxElevationDiagram', ['$rootScope', 'fbxServic
 				var fixedData = data;
 				fixedData.setCell(0, 3, null);
 				titleChart.draw(fixedData, config.titleChartOptions);
-				console.log("drawed with " + fbxService.all().length + " data points");
 			}
 
 			function initializeTable() {

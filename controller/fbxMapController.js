@@ -32,7 +32,6 @@ angular.module('app').controller('fbxMapController', ['$scope', '$rootScope', 'f
 
   scope.$on('jumpTo', function(event, args) {
 
-    console.log(args.source);
     var forward = fbxService.currentPos() < args.pos;
 
     if(fbxService.currentPos() != args.pos) {
@@ -52,7 +51,7 @@ angular.module('app').controller('fbxMapController', ['$scope', '$rootScope', 'f
     }
   });
 
-  scope.$on('diagramShowStateChanges', function(event, args) {
+  scope.$on('diagramShowStateChange', function(event, args) {
     ds = args.state;
     panToCurrent();
   });
@@ -150,7 +149,7 @@ angular.module('app').controller('fbxMapController', ['$scope', '$rootScope', 'f
   function panToCurrent() {
       if(map && scope.mapLocked) {
         if(ds)
-          map.setCenterWithOffset(fbxService.nextPanEntry().location, -125, 0, true);
+          map.setCenterWithOffset(fbxService.nextPanEntry().location, -100, 0, true);
         else
           map.panTo(fbxService.nextPanEntry().location);
 

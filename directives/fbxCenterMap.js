@@ -27,6 +27,9 @@ angular.module('app').directive('fbxCenterMap', ['$rootScope', 'fbxService', fun
         // Set the height of the title page to the window height
         $('#fbx_frontpage').height($(window).height());
 
+        // Fix for dummy scroll panel - set width of title area to a fixed value 
+        $('#fbx_titleDiagram, #fbxImageRoller').width($('#entryListing').width());
+
         // Broadcast event
         rootScope.$broadcast('mapResized');
       }

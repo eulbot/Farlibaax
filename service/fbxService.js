@@ -24,7 +24,9 @@ app.factory('fbxService', ['$rootScope', function(rootScope) {
 
 			$(xml).find("gx\\:Track, Track").find("gx\\:coord, coord").each(function(i) {
 
-				path.push(new google.maps.LatLng($(this).html().split(' ')[1], $(this).html().split(' ')[0]));
+				// Weird fix for some shitter browsers
+				var data = $(this).html() ? $(this).html() : $(this)[0].childNodes[0].data;
+				path.push(new google.maps.LatLng(data.split(' ')[1], data.split(' ')[0]));
 			});
 
 			startDate = Date.parse($(xml).find("gx\\:Track, Track").find("gx\\:coord, coord").first().prev().html());
@@ -97,6 +99,24 @@ app.factory('fbxService', ['$rootScope', function(rootScope) {
 	 		rootScope.$broadcast('trackLoaded');
 	 	}, 'xml');
 	 };
+
+	(function($)
+	{
+	    // maintain a reference to the existing function
+	    var v_html = $.fn.html;
+	    // ...before overwriting the jQuery extension point
+	    $.fn.html = function()
+	    {
+	        // original behavior - use function.apply to preserve context
+	        var result = v_html.apply(this, arguments);
+
+	        if(!result)
+	        	result = $(this)[0].childNodes[0].data;
+
+	        // preserve return value (probably the jQuery object...)
+	        return result;
+	    };
+	})(jQuery);
 
 	return {
 		loadTrack: loadTrack,

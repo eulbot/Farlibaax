@@ -8,15 +8,6 @@ angular.module('app')
 
 				scope.$watch(function() {return scope.groups}, function(){
 					if (scope.groups) {
-		
-						/*for(var i = 0; i < scope.images.length; i++) {
-							if($.inArray(scope.images[i].pos, scope.imageGroups) === -1)
-								scope.imageGroups.push(scope.images[i].pos);
-						}
-
-						scope.imageGroup = function(pos) {
-							return $.grep(scope.images, function(e){ return e.pos == pos; });
-						}*/
 
 						scrollPane = $('#entryListing').bind('jsp-scroll-y', handleScroll).jScrollPane({
 						    'showArrows': false,
@@ -71,9 +62,13 @@ angular.module('app')
 
 				function handleDiagramShowState() {
 
-					if(!ds && $('#fbx_titleDiagram').offset().top * -1 > 180) {
-        				$('.lockButtonContainer, .arrowBox').animate({ 
-        					marginTop: '+=100px'}
+					var fph = $('#fbx_frontpage').height();
+
+					if(!ds && Math.abs($('#fbx_titleDiagram').offset().top) > (fph - fph/3)) {
+        				ds = true;
+
+        				$('.lockButtonContainer, .arrowBox').stop().animate({ 
+        					marginTop: '115px'}
         				, 150, function(){
         					$('.diagramContainer').animate({
     							left: '0px',
@@ -81,29 +76,28 @@ angular.module('app')
         					}, 150);
         				});
 
-        				ds = true;
-        				rootScope.$broadcast('diagramShowStateChanges', {state:ds});
+        				rootScope.$broadcast('diagramShowStateChange', {state:ds});
 					}
 
-					if(ds && $('#fbx_titleDiagram').offset().top * -1 < 80) {
+					/*if(ds && Math.abs($('#fbx_titleDiagram').offset().top) < (fph - fph/2)) {
+        				ds = false;
 
 						$('.diagramContainer').animate({
-    						left: '-250px',
+    						left: '-300px',
     						opacity: 0
         				}, 150, function() {
-							$('.lockButtonContainer,  .arrowBox').animate({ 
-	        					marginTop: '-=100px'}
+							$('.lockButtonContainer,  .arrowBox').stop().animate({ 
+	        					marginTop: '0px'}
 	        				, 200);
         				});
 
-        				ds = false;
-        				rootScope.$broadcast('diagramShowStateChanges', {state:ds});
-					}
+        				rootScope.$broadcast('diagramShowStateChange', {state:ds});
+					}*/
 				}
 
 				function registerHandler() {
 					scrollPane.bind('jsp-scroll-y', handleScroll);
-					handleDiagramShowState();	
+					handleDiagramShowState();
 				}
 				
 				this.refreshScroll = function() {
@@ -112,8 +106,8 @@ angular.module('app')
 					});
 			        clearTimeout(ct);
 			        ct = setTimeout(function() {
+        				$('#fbx_titleDiagram, #fbxImageRoller').width($('#entryListing').width());
 			        	scrollPane.data('jsp').reinitialise();
-			        	console.log("reinitialised");
 			        }, 100);
 		    	};
 			}

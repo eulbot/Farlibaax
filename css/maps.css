@@ -1,9 +1,15 @@
-body
-{
-	overflow: hidden;
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
-div:focus
+body
+{
+	font-size: 11pt;
+	overflow: hidden;
+}
+ div:focus
 {
 	outline: none;
 }
@@ -80,9 +86,13 @@ div:focus
 	box-shadow: 0 0 15px 0 #333;
 	position: absolute;
 	height: 100%;
-	min-width: 500px;
+	min-width: 550px;
 	outline-right: 1px solid #aaa;
 	width: 38%;
+}
+
+#entryWrapper {
+	width: 100%;
 }
 
 #button
@@ -95,10 +105,6 @@ div:focus
 	top: 100px;
 	width: 200px;
 	z-index: 2;
-}
-
-#entryWrapper {
-	width: 730px !important
 }
 
 #entryListing
@@ -131,7 +137,6 @@ div:focus
 	font-size: 10pt;
 	padding: 2pt 6pt 6pt 6pt;
 	color: #666; 
-	width: 100%;
 }
 
 .titleArea
@@ -223,11 +228,11 @@ div:focus
 }
 
 .diagramContainer {
-	left: -250px;
+	left: -350px;
 	position: absolute;
     z-index: 99;
-    width: 200px;
-    height: 85px;
+    width: 250px;
+    height: 100px;
 }
 .diagramContainer > *{
     cursor: default !important; 
@@ -256,14 +261,12 @@ div:focus
 }
 
 .lockButtonContainer > svg {
-    height: 30px;
     width: 30px;
+    height: 30px;
     padding: 4px; 
 }
 
 .mapControlContainer > * > path {
-	width: 2em;
-	height: 2em;
 	fill: #555;
 }
 

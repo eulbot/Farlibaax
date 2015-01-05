@@ -3,8 +3,8 @@
 
 	angular.module('app').controller('fbxMainController', ['$scope', '$rootScope', 'fbxService', 'config', function(scope, rootScope, fbxService, config) {
   		
-		var trackpath = '/kml/Haidsteig.kml',
-		imagePath = '/kml/images.xml';
+		var trackpath = '../kml/Haidsteig.kml',
+		imagePath = '../kml/images.xml';
 
 
 		function init() {
@@ -20,7 +20,6 @@
 		function getTripInfo() {
 			scope.$apply(function() {
 				scope.groups = fbxService.groups();
-				//scope.imageGroups = [];
 				scope.tripDate = fbxService.tripDate();
 				scope.ascent = fbxService.ascent();
 				scope.descent = fbxService.descent();
